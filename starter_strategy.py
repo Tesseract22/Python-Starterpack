@@ -1,4 +1,5 @@
 from fcntl import LOCK_WRITE
+from turtle import position
 
 # import numpy as np
 from game import player_state
@@ -122,11 +123,15 @@ def kite(game_state: GameState, my_player_index):
         vector.x += direction.x * weight
         vector.y += direction.y * weight
         
-    vector.x = vector.x / total
-    vector.y = vector.y / total
+    l = utility.manhattan_distance(position(0, 0), vector)
+    vector.x = vector.x / l * game_state.player_state_list[my_player_index].stat_set.range
+    vector.y = vector.y / l * game_state.player_state_list[my_player_index].stat_set.range
 
     curr_pos.x += vector.x
-    curr_pos.y == vector.y
+    curr_pos.y += vector.y
+
     
+
     return curr_pos
-    pass
+
+
